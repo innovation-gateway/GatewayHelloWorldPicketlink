@@ -1,0 +1,54 @@
+<PicketLink xmlns="urn:picketlink:identity-federation:config:2.1">
+
+	<!-- This is picketlink's native equivalent of the sp-metadata.xml -->
+	<!-- Redirect SAML profile being used here -->
+	<!-- SupportsSignatures turns on signature processing -->
+
+	<PicketLinkSP xmlns="urn:picketlink:identity-federation:config:2.1"
+		ServerEnvironment="tomcat" SupportsSignatures="true" BindingType="REDIRECT"
+		RelayState="someURL">
+		<!-- You should not need to change the IdentityURL. You must include the 
+			port on the Identity Provider url or SAML Authentication will fail! -->
+		<IdentityURL>${idp.url::https://idp.igw.us:443/openam/SSORedirect/metaAlias/idp}
+		</IdentityURL>
+		<!-- The trailing slash on the Service URL is mandatory -->
+		<!-- To Do: Your service end point goes here -->
+		<ServiceURL>${service.url::https://helloworld.novetta.o.igw.us/}
+		</ServiceURL>
+
+		<!-- For signing SAML requests -->
+		<KeyProvider
+			ClassName="org.picketlink.identity.federation.core.impl.KeyStoreKeyManager">
+			<!-- Your applications certificate and the Gateways idp keystore needs 
+				to be in the keystore below -->
+			<!-- To Do: Put in the path to the Gateway Truststore. Put your service 
+				specific certificate in the trust store as well -->
+			<Auth Key="KeyStoreURL" Value="file:///etc/pki/java/samlKeystore.jks" />
+			<Auth Key="KeyStorePass" Value="Gateway" />
+
+			<!-- Use the ssl/tls cert issued to you as your signing signature -->
+			<!-- To Do:  Set the alias and password for your signing cert here -->
+			<Auth Key="SigningKeyPass" Value="yourPrivateKeyPassword" />
+			<Auth Key="SigningKeyAlias" Value="helloworld" />
+
+			<!-- Use the idp certificate downloaded from the gateway as the validating 
+				signature -->
+			<ValidatingAlias Key="idp.igw.us" Value="idp-igw-us-saml" />
+		</KeyProvider>
+
+	</PicketLinkSP>
+	<Handlers xmlns="urn:picketlink:identity-federation:handler:config:2.1">
+		<Handler
+			class="org.picketlink.identity.federation.web.handlers.saml2.SAML2LogOutHandler" />
+		<Handler
+			class="org.picketlink.identity.federation.web.handlers.saml2.SAML2AuthenticationHandler">
+			<Option Key="ASSERTION_SESSION_ATTRIBUTE_NAME" Value="org.picketlink.sp.assertion" />
+		</Handler>
+		<Handler
+			class="org.picketlink.identity.federation.web.handlers.saml2.RolesGenerationHandler" />
+		<Handler
+			class="org.picketlink.identity.federation.web.handlers.saml2.SAML2SignatureGenerationHandler" />
+		<Handler
+			class="org.picketlink.identity.federation.web.handlers.saml2.SAML2SignatureValidationHandler" />
+	</Handlers>
+</PicketLink>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitiesDescriptor Name="urn:mace:shibboleth:testshib:two"
+	xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- This is a SAML 2 redirect profile -->
+
+	<!-- 
+		This is for reference only.  This is an example of the information that gets registered  
+		for your service in the Gateway identity provider when you create an endpoint in the Gateway User Interface. You do not need to generate this.
+	-->
+	
+	<EntityDescriptor ID="urn:sp:helloworld:novetta:igw"
+		entityID="https://helloworld.novetta.o.igw.us/">
+		<!-- AuthnRequestSigned and WantAssertionsSigned turns on signing -->
+		<SPSSODescriptor AuthnRequestsSigned="true"
+			WantAssertionsSigned="true"
+			protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol http://schemas.xmlsoap.org/ws/2003/07/secext">
+			<KeyDescriptor use="signing">
+				<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+					<ds:X509Data>
+						<!-- This is your public certificate for signing. You should use the 
+							public cert issued to you by Gateway for your endpoint. The IDP uses the 
+							certificate information below for validation. In addition, it needs 
+							to be issued by an entity in the Idps trust store. Gateway issued certificates 
+							meet this criteria. -->
+						<ds:X509Certificate>
+MIIDpzCCAo+gAwIBAgIBXTANBgkqhkiG9w0BAQsFADA7MRMwEQYDVQQKEwpJR1cgRG9tYWluMQ8w
+DQYDVQQLEwZwa2ktY2ExEzARBgNVBAMTCkdhdGV3YXkgQ0EwHhcNMTUwNDEzMTUzOTQ2WhcNMTUx
+MDEwMTUzOTQ2WjAmMSQwIgYDVQQDExtoZWxsb3dvcmxkLm5vdmV0dGEuby5pZ3cudXMwggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCSpDskd35bhfz9OVFBB+D4mB5dU0rfZum3wDoEGhPX
+tXsda97G0CQ9GswD3jaHSPQaH8xFnXdwvyAh9yTmECAiNBYKzvyBjIQF94ReqP1KRYBzhvE2bv7l
+62bCnmgK5JAawMNuwCwf+QpCdCIRY2m0ljq/dINqHGV61Ctbzth++uSPvAYZzpwUKlQr6xF7ZnbH
+tivotlo8qVBKHxEvXoL8TQu6eOWa7cuoVrjlBtefqXMTBXqKUC7bFIFKhQdCbHJmWILzIaALAKFW
+yTS7i0im8U8ujMWIg9lavq29vUeipAULCxa/HEhTwBSta2WIXj5ppLR0b8S1b1x7A47Ekj4FAgMB
+AAGjgcowgccwHwYDVR0jBBgwFoAUHRItWgYLw3M6HwsV6eH9QymnZ0wwPgYIKwYBBQUHAQEEMjAw
+MC4GCCsGAQUFBzABhiJodHRwOi8vcGtpcm9vdC5pZ3cudXM6OTE4MC9jYS9vY3NwMA4GA1UdDwEB
+/wQEAwIE8DAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwNQYDVR0fBC4wLDAqoCigJoYk
+aHR0cHM6Ly93d3cuaWd3LnVzL2NybC9NYXN0ZXJDUkwuYmluMA0GCSqGSIb3DQEBCwUAA4IBAQCC
+Ng6qaOh9vcvP0BgCPz7t5ng6NAgW+sYgWzlorqTJGOh8afQKhh3hsfezUuz7zjcmMWM90dL7UuBp
+FIITY0FR7XlamZu2r0ru4MaMza7HfgJ37WW6jGeMADxRS7fVDnKqdoG8jvOmoPIplZKIMPB3qaYS
+tQrolep4ccDv5THXQhjvnTXuGDQGV8uk8KLQhWUGpWXimh9hvSPacx3Aoi+WsUPQLoJ/fDsGnKLJ
+nCFCR00Sw6naDMTUeK/vDjC/v/sTJIyDGHLAmV0G/w4EXzf1x1sB4UZrJg1S3EYue+qP2rArvwHk
+CJl7SeuiYacDCBMfV+OwYA1NND5d6ihJac/Q
+						</ds:X509Certificate>
+					</ds:X509Data>
+				</ds:KeyInfo>
+			</KeyDescriptor>
+			<NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+			</NameIDFormat>
+
+			<!-- Where attributes will be returned to your SP from the Idp -->
+			<AssertionConsumerService
+				Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+				Location="https://helloworld.novetta.o.igw.us/"
+				index="1" isDefault="true" />
+
+		</SPSSODescriptor>
+	</EntityDescriptor>
+</EntitiesDescriptor>
