@@ -37,7 +37,9 @@ public void doGet(HttpServletRequest request,
    // Application logic goes here.
    out.println("<h1>" + message + "</h1>");
   
-   out.println("<h2>" + "You can download the source for this example Gateway app at " + "Coming Soon!" + "</h2>");
+   out.println("<h2>" + 
+		   	   "You can download the source for this example Gateway app at " + 
+		       "<a href=\"https://github.com/innovation-gateway/GatewayHelloWorldPicketlink\">Github Gateway Repository</a>" + "</h2>");
    
    GenericPrincipal principal = (GenericPrincipal) request.getUserPrincipal();
    String roles[] = principal.getRoles();
